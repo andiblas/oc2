@@ -1,0 +1,61 @@
+%include "io.inc"
+section .data
+vector db 1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4,5,6,7,8
+
+section .text
+global CMAIN
+CMAIN:
+
+    mov ebp, esp; for correct debugging
+
+    ;write your code here
+
+    xor eax, eax
+
+    push 24
+
+    push vector
+
+    call INICIALIZAR_VECTOR
+
+    add esp, 8
+
+    
+
+    ret
+
+    
+
+        
+
+;void InicializarVectorEnCero(char *vectorA, int dimension)
+
+INICIALIZAR_VECTOR:
+
+    push ebp
+
+    mov ebp, esp
+
+    mov eax, [ebp + 8]
+
+    mov ebx, [ebp + 12]
+
+    xor ecx, ecx
+
+    CICLO:
+
+    pxor mm1, mm1
+
+    movq [eax], mm1
+
+    add eax, 8
+
+    add ecx, 8
+
+    cmp ecx, ebx
+
+    jb CICLO
+
+    pop ebp
+
+    ret
